@@ -1,19 +1,40 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import RaisedButton from 'material-ui/RaisedButton';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import AppBar from 'material-ui/AppBar';
+import TextField from 'material-ui/TextField';
+import FlatButton from 'material-ui/FlatButton';
+import axios from 'axios';
 
 class App extends Component {
+  constructor(){
+    super();
+    this.login = this.login.bind(this);
+
+  }
+
+  login(){
+    axios.post('login');
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      <MuiThemeProvider >
+        <AppBar title="Login" />
+        <TextField
+           hintText="Hint Text"
+            floatingLabelText="UserName"
+        />
+        <br />
+        <TextField
+          floatingLabelText="Password"
+        /> <br/>
+            <FlatButton label="Login" primary={true} onClick={this.login}/>
+      </MuiThemeProvider>
     );
   }
 }
