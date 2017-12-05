@@ -8,6 +8,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import AppBar from 'material-ui/AppBar';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
+import Dashboard from './Dashboard/dashboard';
 import axios from 'axios';
 
 class App extends Component {
@@ -40,19 +41,24 @@ class App extends Component {
   render() {
     return (
       <MuiThemeProvider >
-        <AppBar title="Login" />
+        <AppBar title="Login" >
+          <FlatButton label="Dashboard" onClick={this.login}/>
+          <FlatButton label="Scheduler" onClick={this.login}/>
+          <FlatButton label="Logout" onClick={this.login}/>
+        </AppBar>
         <TextField
           value={this.state.email} 
           onChange={this.handleEmailChange}
-            floatingLabelText="email"
+          floatingLabelText="email"
         />
         <br />
         <TextField
           value={this.state.password} 
           onChange={this.handlePasswordChange}
           floatingLabelText="Password"
-        /> <br/>
-            <FlatButton label="Login" primary={true} onClick={this.login}/>
+        /> 
+        <br/>
+        <FlatButton label="Login" primary={true} onClick={this.login}/>
       </MuiThemeProvider>
     );
   }
