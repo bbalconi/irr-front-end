@@ -1,0 +1,18 @@
+.reallyTopWrapper{
+  display:flex;
+  flex-direction:row;
+}
+
+.topWrapper{
+  display:flex;
+  flex-direction:column;
+}
+
+.bottomWrapper{
+  display:flex;
+  flex-direction:row;
+}
+
+.irrCard{
+  margin:15px;
+}

@@ -44,20 +44,19 @@ class App extends Component {
     });
   }
 
-  //route
-
   render() {
     return (
       <Router>
         <MuiThemeProvider>
          <AppBar title="Login" >
-           <FlatButton><Link to='/Dashboard'>Dashboard</Link></FlatButton>
-           <FlatButton label="Scheduler" onClick={this.login}/>
-           <FlatButton label="Logout" onClick={this.login}/>
+           <FlatButton label="Dashboard"><Link to='/Dashboard'></Link></FlatButton>
+           {/* <FlatButton label="Scheduler"><Link to='/Scheduler'></Link></FlatButton> */}
+           <FlatButton label="Logout"></FlatButton>
           </AppBar>
             <div className="container">
               <Route exact path='/' render={() => <Home />} />
               <Route path='/login' render={() => <Login />} />
+              <Route path='/dashboard' render={() => <Dashboard />} />
               {/*<Route path='/signup' render={() => <SignUp />} />*/}
             </div>
         </MuiThemeProvider>
