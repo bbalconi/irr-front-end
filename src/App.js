@@ -2,18 +2,20 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
-import RaisedButton from 'material-ui/RaisedButton';
+//import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import AppBar from 'material-ui/AppBar';
-import TextField from 'material-ui/TextField';
-import FlatButton from 'material-ui/FlatButton';
 import Dashboard from './Dashboard/dashboard';
 import axios from 'axios';
 import {
   BrowserRouter as Router,
   Route, 
 } from 'react-router-dom';
+import FlatButton from 'material-ui/FlatButton';
+import Home from './Home/home';
+import Login from './Login/login';
+import { Link } from 'react-router-dom';
+
 
 class App extends Component {
   constructor(){
@@ -42,21 +44,21 @@ class App extends Component {
     });
   }
 
+  //route
+
   render() {
     return (
       <Router>
-        <MuiThemeProvider >
+        <MuiThemeProvider>
          <AppBar title="Login" >
-           <FlatButton label="Dashboard" onClick={this.login}/>
+           <FlatButton><Link to='/Dashboard'>Dashboard</Link></FlatButton>
            <FlatButton label="Scheduler" onClick={this.login}/>
            <FlatButton label="Logout" onClick={this.login}/>
           </AppBar>
             <div className="container">
-               <Route exact path='/' render={() => <Home />} />
-              {/*<Route path='/login' render={() => <Login />} />
-              <Route path='/signup' render={() => <SignUp />} />
-              <Route path='/findSongs' render={() =>  <TrackBlock />} />
-              <Route path='/favorites' render={()=> <Favorites />} /> */}
+              <Route exact path='/' render={() => <Home />} />
+              <Route path='/login' render={() => <Login />} />
+              {/*<Route path='/signup' render={() => <SignUp />} />*/}
             </div>
         </MuiThemeProvider>
       </Router>
