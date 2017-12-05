@@ -52,8 +52,8 @@ class App extends Component {
            <FlatButton label="Logout" onClick={this.login}/>
           </AppBar>
             <div className="container">
-              {/* <Route exact path='/' render={() => <About />} />
-              <Route path='/login' render={() => <Login />} />
+               <Route exact path='/' render={() => <Home />} />
+              {/*<Route path='/login' render={() => <Login />} />
               <Route path='/signup' render={() => <SignUp />} />
               <Route path='/findSongs' render={() =>  <TrackBlock />} />
               <Route path='/favorites' render={()=> <Favorites />} /> */}
