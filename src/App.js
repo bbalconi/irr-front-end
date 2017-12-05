@@ -10,6 +10,10 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import Dashboard from './Dashboard/dashboard';
 import axios from 'axios';
+import {
+  BrowserRouter as Router,
+  Route, 
+} from 'react-router-dom';
 
 class App extends Component {
   constructor(){
@@ -40,26 +44,22 @@ class App extends Component {
 
   render() {
     return (
-      <MuiThemeProvider >
-        <AppBar title="Login" >
-          <FlatButton label="Dashboard" onClick={this.login}/>
-          <FlatButton label="Scheduler" onClick={this.login}/>
-          <FlatButton label="Logout" onClick={this.login}/>
-        </AppBar>
-        <TextField
-          value={this.state.email} 
-          onChange={this.handleEmailChange}
-          floatingLabelText="email"
-        />
-        <br />
-        <TextField
-          value={this.state.password} 
-          onChange={this.handlePasswordChange}
-          floatingLabelText="Password"
-        /> 
-        <br/>
-        <FlatButton label="Login" primary={true} onClick={this.login}/>
-      </MuiThemeProvider>
+      <Router>
+        <MuiThemeProvider >
+         <AppBar title="Login" >
+           <FlatButton label="Dashboard" onClick={this.login}/>
+           <FlatButton label="Scheduler" onClick={this.login}/>
+           <FlatButton label="Logout" onClick={this.login}/>
+          </AppBar>
+            <div className="container">
+              {/* <Route exact path='/' render={() => <About />} />
+              <Route path='/login' render={() => <Login />} />
+              <Route path='/signup' render={() => <SignUp />} />
+              <Route path='/findSongs' render={() =>  <TrackBlock />} />
+              <Route path='/favorites' render={()=> <Favorites />} /> */}
+            </div>
+        </MuiThemeProvider>
+      </Router>
     );
   }
 }
