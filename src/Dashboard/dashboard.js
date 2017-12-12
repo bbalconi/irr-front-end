@@ -64,8 +64,6 @@ export default class Dashboard extends Component {
               </CardActions>
             </Card>              
             </div>
-
-
         )
       }
     }
