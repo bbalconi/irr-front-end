@@ -19,6 +19,7 @@ import { Link } from 'react-router-dom';
 class App extends Component {
     render() {
     return (
+      
       <MuiThemeProvider muiTheme={getMuiTheme()}>      
         <Router>
           <div>
@@ -36,6 +37,7 @@ class App extends Component {
           </div>
         </Router>
       </MuiThemeProvider>
+
     );
   }
 }

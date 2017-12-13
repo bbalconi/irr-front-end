@@ -29,3 +29,7 @@ it ('expects a call to /authenticate after clicking the login button', ()=>{
   dude.first(".loginButton").simulate('click');
   expect(barf).toHaveBeenCalled();
 });
+
+
+//todo: how to make a test that once user clicks login, app sends them to /dashboard
+//todo: need to make error handling tests
