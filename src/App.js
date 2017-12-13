@@ -16,51 +16,26 @@ import Home from './Home/home';
 import Login from './Login/login';
 import { Link } from 'react-router-dom';
 
-
 class App extends Component {
-  constructor(){
-    super();
-    this.login = this.login.bind(this);
-    this.state = {
-      email: '',
-      password:''
-    };
-    this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
-  }
-
-  handlePasswordChange(event){
-    this.setState({password: event.target.value});
-  }
-
-  handleEmailChange(event) {
-    this.setState({email: event.target.value});
-  }
-
-  login(){
-    axios.post('/authenticate',{
-      email:this.state.email,
-      password:this.state.password
-    });
-  }
-
-  render() {
+    render() {
     return (
-      <Router>
-        <MuiThemeProvider>
-         <AppBar title="Login" >
-           <FlatButton label="Dashboard"><Link to='/Dashboard'></Link></FlatButton>
-           {/* <FlatButton label="Scheduler"><Link to='/Scheduler'></Link></FlatButton> */}
-           <FlatButton label="Logout"></FlatButton>
-          </AppBar>
-            <div className="container">
-              <Route exact path='/' render={() => <Home />} />
-              <Route path='/login' render={() => <Login />} />
-              <Route path='/dashboard' render={() => <Dashboard />} />
-              {/*<Route path='/signup' render={() => <SignUp />} />*/}
-            </div>
-        </MuiThemeProvider>
-      </Router>
+      <MuiThemeProvider muiTheme={getMuiTheme()}>      
+        <Router>
+          <div>
+            <AppBar title="Login" >
+              <FlatButton label="Dashboard"><Link to='/Dashboard'></Link></FlatButton>
+              {/* <FlatButton label="Scheduler"><Link to='/Scheduler'></Link></FlatButton> */}
+              <FlatButton label="Logout"></FlatButton>
+              </AppBar>
+                <div className="container">
+                  <Route exact path='/' render={() => <Home />} />
+                  <Route path='/login' render={() => <Login />} />
+                  <Route path='/dashboard' render={() => <Dashboard />} />
+                  {/*<Route path='/signup' render={() => <SignUp />} />*/}
+                </div>
+          </div>
+        </Router>
+      </MuiThemeProvider>
     );
   }
 }
