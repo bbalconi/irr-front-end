@@ -9,17 +9,20 @@ import Dashboard from './Dashboard/dashboard';
 import axios from 'axios';
 import {
   BrowserRouter as Router,
-  Route, 
+  Route,
+  Link,
 } from 'react-router-dom';
 import FlatButton from 'material-ui/FlatButton';
 import Home from './Home/home';
 import Login from './Login/login';
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 class App extends Component {
-    render() {
+  // getChildContext(){
+  //   return {message:"dudeleavemealone"}
+  // }
+  render() {
     return (
-      
       <MuiThemeProvider muiTheme={getMuiTheme()}>      
         <Router>
           <div>
@@ -37,9 +40,12 @@ class App extends Component {
           </div>
         </Router>
       </MuiThemeProvider>
-
     );
   }
 }
+
+// App.childContextTypes = {
+//   message:PropTypes.string
+// }
 
 export default App;

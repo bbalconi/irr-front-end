@@ -3,12 +3,32 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-//import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+class Greeting extends React.Component {
+  constructor(props){
+    super(props);
+  }
+  render() {
+    return (
+      <div>
+        <h1>{this.context.message}</h1>
+          {this.props.children}
+      </div>
+    );
+  }
+}
+
+ Greeting.contextTypes = {
+   message: PropTypes.string,
+ };
 
 class Login extends Component {
-  constructor(){
-    super();
+  getChildContext(){
+    return {message:"fart"}
+  }
+  constructor(props){
+    super(props);
     this.login = this.login.bind(this);
     this.state = {
       email: '',
@@ -21,12 +41,11 @@ class Login extends Component {
   handlePasswordChange(event){
     this.setState({password: event.target.value});
   }
-
   handleEmailChange(event) {
     this.setState({email: event.target.value});
   }
-
-  login(){
+  async login(){
+    var barf = await axios.post('authenticate');
     axios.post('/authenticate',{
       email:this.state.email,
       password:this.state.password
@@ -34,7 +53,7 @@ class Login extends Component {
       this.props.history.push('/dashboard');
     });
   }
-
+  
   render(){
     return (
       <div>
@@ -53,10 +72,17 @@ class Login extends Component {
         /> 
         <br/>
         <FlatButton className="loginButton" label="login" primary={true} onClick={this.login}/>
+        {/* <Greeting message={this.props.thing}  name={"Mark"}>
+          <h2> fun timesi n babylong </h2>
+        </Greeting> */}
       </div>
     )
   } 
 }
 
-//export default withRouter(Login);
-export default Login;
+Login.childContextTypes={
+  message:PropTypes.string
+}
+
+export default withRouter(Login);
+//export default Login;

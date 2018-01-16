@@ -2,11 +2,26 @@ import React from 'react';
 import axios from 'axios';
 import mockAxios from 'axios-mock-adapter';
 import Login from './login';
-import { shallow } from 'enzyme';
+import { shallow, render, mount } from 'enzyme';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
+import {MemoryRouter} from 'react-router-dom';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+//import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import PropTypes from 'prop-types';
+import Dashboard from '../Dashboard/dashboard';
 
-var dude = shallow(<Login />);
+//here's the state im in: everything works for this, i just need to get something else
+
+var dude = mount(
+    <MemoryRouter>
+            <MuiThemeProvider muiTheme={getMuiTheme()}>      
+              <Login />
+              <Dashboard />
+            </MuiThemeProvider>      
+      </MemoryRouter>
+)
 
 it('expects a TextField component with a label "password"', () => {
   expect(dude.containsMatchingElement( <TextField type="password" floatingLabelText="password"/>)).toBeTruthy();
@@ -29,7 +44,6 @@ it ('expects a call to /authenticate after clicking the login button', ()=>{
   dude.first(".loginButton").simulate('click');
   expect(barf).toHaveBeenCalled();
 });
-
 
 //todo: how to make a test that once user clicks login, app sends them to /dashboard
 //todo: need to make error handling tests
