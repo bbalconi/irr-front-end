@@ -44,7 +44,7 @@ class Dashboard extends Component {
                   Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
                 </CardText>
               <CardActions>
-                <FlatButton label="Visit Controls" />
+                <FlatButton onClick={()=>{this.navigate('controls')}} label="Visit Controls" />
               </CardActions>
             </Card>
                 <Card className="irrCard">
@@ -56,7 +56,7 @@ class Dashboard extends Component {
                 Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
               </CardText>
               <CardActions>
-                <FlatButton label="Go to Scheduler" />
+                <FlatButton onClick={()=>{this.navigate('scheduler')}} label="Go to Scheduler" />
               </CardActions>
             </Card>              
            </div>

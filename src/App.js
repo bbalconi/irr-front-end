@@ -18,6 +18,7 @@ import Login from './Login/login';
 import PropTypes from 'prop-types';
 import Scheduler from "./Scheduler/scheduler"
 import Report from "./Report/Report";
+import Controls from "./Controls/Controls";
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -49,7 +50,8 @@ class App extends Component {
                   <Route path='/dashboard' render={() => <Dashboard />} />
                   <Route path='/scheduler' render={() => <Scheduler />} />
                   <Route path='/historicalReports' render={() => <Report />} />
-                  
+                  <Route path='/todaysReport' render={() => <Report />} />
+                  <Route path='/controls' render={() => <Controls />} />
                   {/*<Route path='/signup' render={() => <SignUp />} />*/}
                 </div>
           </div>
