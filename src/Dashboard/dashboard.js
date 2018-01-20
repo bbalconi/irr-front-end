@@ -2,8 +2,22 @@ import React, {Component} from 'react';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import './dashboard.css';
+import { withRouter } from 'react-router-dom';
 
-export default class Dashboard extends Component {
+
+
+class Dashboard extends Component {
+  
+  constructor(){
+    super();
+    this.navigate = this.navigate.bind(this);
+  }
+
+  navigate(location){
+    this.props.history.push(location)
+  }
+
+
       render(){
         return(
           <div className="reallyTopWrapper">
@@ -17,8 +31,7 @@ export default class Dashboard extends Component {
                   Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
                 </CardText>
                 <CardActions>
-                  <FlatButton label="Action1" />
-                  <FlatButton label="Action2" />
+                  <FlatButton onClick={()=>{this.navigate('todaysReport')}} label="See Today's Activity" />
                 </CardActions>
               </Card>
               <div className="bottomWrapper">
@@ -31,8 +44,7 @@ export default class Dashboard extends Component {
                   Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
                 </CardText>
               <CardActions>
-                <FlatButton label="Action1" />
-                <FlatButton label="Action2" />
+                <FlatButton label="Visit Controls" />
               </CardActions>
             </Card>
                 <Card className="irrCard">
@@ -44,8 +56,7 @@ export default class Dashboard extends Component {
                 Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
               </CardText>
               <CardActions>
-                <FlatButton label="Action1" />
-                <FlatButton label="Action2" />
+                <FlatButton label="Go to Scheduler" />
               </CardActions>
             </Card>              
            </div>
@@ -59,11 +70,12 @@ export default class Dashboard extends Component {
                 Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
               </CardText>
               <CardActions>
-                <FlatButton label="Action1" />
-                <FlatButton label="Action2" />
+                <FlatButton onClick={()=>{this.navigate('historicalReports')}} label="View Reports"/>
               </CardActions>
             </Card>              
             </div>
         )
       }
     }
+    
+export default withRouter(Dashboard);

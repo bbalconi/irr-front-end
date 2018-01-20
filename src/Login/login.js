@@ -79,4 +79,3 @@ Login.childContextTypes={
 }
 
 export default withRouter(Login);
-//export default Login;

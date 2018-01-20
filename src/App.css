@@ -42,3 +42,11 @@ a:visited{
 a:active{
   text-decoration:none;
 }
+
+.irrAppBar{
+  color:white !important;
+}
+
+a:link {
+  color:white;
+}

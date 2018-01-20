@@ -17,25 +17,39 @@ import Home from './Home/home';
 import Login from './Login/login';
 import PropTypes from 'prop-types';
 import Scheduler from "./Scheduler/scheduler"
+import Report from "./Report/Report";
+
+const muiTheme = getMuiTheme({
+  palette: {
+    "primary1Color": "#689f38",
+    "primary3Color": "#7cb342",
+    "accent1Color": "#039be5",
+    "accent2Color": "#2979ff",
+    "accent3Color": "#795548"
+  },
+  appBar: {
+    height: 50,
+  }
+});
 
 class App extends Component {
-
   render() {
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme()}>      
+      <MuiThemeProvider muiTheme={muiTheme}>      
         <Router>
           <div>
-            <AppBar title="Login" >
-              <FlatButton label="Dashboard"><Link to='/Dashboard'></Link></FlatButton>
-              <FlatButton label="Scheduler"><Link to='/Scheduler'></Link></FlatButton> 
-              <FlatButton label="Logout"></FlatButton>
-              </AppBar>
+            <AppBar className="irrAppBar" title="Quench" >
+              <FlatButton> <Link to='/Dashboard'> Dashboard </Link></FlatButton>
+              <FlatButton><Link to='/Scheduler'> Scheduler </Link></FlatButton> 
+              <FlatButton > Logout</FlatButton>
+            </AppBar>
                 <div className="container">
                   <Route exact path='/' render={() => <Home />} />
                   <Route path='/login' render={() => <Login />} />
                   <Route path='/dashboard' render={() => <Dashboard />} />
                   <Route path='/scheduler' render={() => <Scheduler />} />
-
+                  <Route path='/historicalReports' render={() => <Report />} />
+                  
                   {/*<Route path='/signup' render={() => <SignUp />} />*/}
                 </div>
           </div>
