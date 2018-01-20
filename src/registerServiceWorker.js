@@ -1,4 +1,6 @@
 // In production, we register a service worker to serve assets from local cache.
+// ^ only works in production, duh
+
 
 // This lets the app load faster on subsequent visits in production, and gives
 // it offline capabilities. However, it also means that developers (and users)
@@ -30,6 +32,7 @@ export default function register() {
     }
 
     window.addEventListener('load', () => {
+
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
 
       if (isLocalhost) {

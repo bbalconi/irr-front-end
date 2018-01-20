@@ -18,15 +18,9 @@ class Greeting extends React.Component {
     );
   }
 }
-
- Greeting.contextTypes = {
-   message: PropTypes.string,
- };
-
+ 
 class Login extends Component {
-  getChildContext(){
-    return {message:"fart"}
-  }
+  
   constructor(props){
     super(props);
     this.login = this.login.bind(this);
@@ -41,17 +35,17 @@ class Login extends Component {
   handlePasswordChange(event){
     this.setState({password: event.target.value});
   }
+  
   handleEmailChange(event) {
     this.setState({email: event.target.value});
   }
+
   async login(){
-    var barf = await axios.post('authenticate');
-    axios.post('/authenticate',{
+    var barf = await axios.post('authenticate', {
       email:this.state.email,
       password:this.state.password
-    }).then(()=>{
-      this.props.history.push('/dashboard');
     });
+    this.props.history.push('/dashboard');
   }
   
   render(){

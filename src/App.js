@@ -16,11 +16,10 @@ import FlatButton from 'material-ui/FlatButton';
 import Home from './Home/home';
 import Login from './Login/login';
 import PropTypes from 'prop-types';
+import Scheduler from "./Scheduler/scheduler"
 
 class App extends Component {
-  // getChildContext(){
-  //   return {message:"dudeleavemealone"}
-  // }
+
   render() {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>      
@@ -28,13 +27,15 @@ class App extends Component {
           <div>
             <AppBar title="Login" >
               <FlatButton label="Dashboard"><Link to='/Dashboard'></Link></FlatButton>
-              {/* <FlatButton label="Scheduler"><Link to='/Scheduler'></Link></FlatButton> */}
+              <FlatButton label="Scheduler"><Link to='/Scheduler'></Link></FlatButton> 
               <FlatButton label="Logout"></FlatButton>
               </AppBar>
                 <div className="container">
                   <Route exact path='/' render={() => <Home />} />
                   <Route path='/login' render={() => <Login />} />
                   <Route path='/dashboard' render={() => <Dashboard />} />
+                  <Route path='/scheduler' render={() => <Scheduler />} />
+
                   {/*<Route path='/signup' render={() => <SignUp />} />*/}
                 </div>
           </div>
@@ -43,9 +44,5 @@ class App extends Component {
     );
   }
 }
-
-// App.childContextTypes = {
-//   message:PropTypes.string
-// }
 
 export default App;
