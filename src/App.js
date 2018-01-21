@@ -49,7 +49,7 @@ class App extends Component {
                   <Route path='/login' render={() => <Login />} />
                   <Route path='/dashboard' render={() => <Dashboard />} />
                   <Route path='/scheduler' render={() => <Scheduler />} />
-                  <Route path='/historicalReports' render={() => <Report />} />
+                  <Route path='/historicalReports' render={() => <Report data={[5,10,1,3]} size={[500,500]} />} />
                   <Route path='/todaysReport' render={() => <Report />} />
                   <Route path='/controls' render={() => <Controls />} />
                   {/*<Route path='/signup' render={() => <SignUp />} />*/}
