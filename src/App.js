@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 //import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
@@ -19,6 +18,9 @@ import PropTypes from 'prop-types';
 import Scheduler from "./Scheduler/scheduler"
 import Report from "./Report/Report";
 import Controls from "./Controls/Controls";
+import logo from "./logo.png";
+import can from "./007-can.png";
+
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -39,10 +41,13 @@ class App extends Component {
       <MuiThemeProvider muiTheme={muiTheme}>      
         <Router>
           <div>
-            <AppBar className="irrAppBar" title="Quench" >
-              <FlatButton> <Link to='/Dashboard'> Dashboard </Link></FlatButton>
+            {/* <AppBar showMenuIconButton={false}	className="irrAppBar" title={<img src={logo} alt="logo" height="80px"></img>}> */}
+            <AppBar showMenuIconButton={false}	className="irrAppBar" >
+              <FlatButton><Link to='/Dashboard'> <span className="barf"><img src={can} alt="logo" height="20px"></img>Dashboard</span></Link></FlatButton>
               <FlatButton><Link to='/Scheduler'> Scheduler </Link></FlatButton> 
-              <FlatButton > Logout</FlatButton>
+              <FlatButton><Link to='/controls'> Controls </Link></FlatButton>
+              <FlatButton><Link to='/historicalReports'> Reports </Link></FlatButton>
+              <FlatButton> <span className="navText">Sign Up</span></FlatButton>
             </AppBar>
                 <div className="container">
                   <Route exact path='/' render={() => <Home />} />

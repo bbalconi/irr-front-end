@@ -30,12 +30,12 @@
 a:link{
   text-decoration:none;
   /* color:rgba(0, 0, 0, 0.87); */
-  color:inherit;
+  color:white;
 }
 
 a:visited{
   text-decoration:none;
-  color:inherit;
+  color:white;
   font-family:inherit;
 }
 
@@ -43,10 +43,7 @@ a:active{
   text-decoration:none;
 }
 
-.irrAppBar{
-  color:white !important;
-}
-
-a:link {
+.navText{
   color:white;
 }
+

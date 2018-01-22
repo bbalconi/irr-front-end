@@ -5,35 +5,36 @@ import moment from 'moment'
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 
+
 BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment))
 
 const data = [{
-  duration:300000,
+  duration:3000000,
   startTime: "2018-01-15T18:00:00+00:00",
   zones:[3, 5]
 },
 {
-  duration:300000,
+  duration:3000000,
   startTime: "2018-01-17T18:00:00+00:00",
   zones:[3, 5]
 },
 {
-  duration:300000,
+  duration:3000000,
   startTime: "2018-01-19T18:00:00+00:00",
   zones:[3, 5]
 },
 {
-  duration:300000,
+  duration:3000000,
   startTime: "2018-01-21T18:00:00+00:00",
   zones:[3, 5]
 },
 {
-  duration:300000,
+  duration:3000000,
   startTime: "2018-01-23T18:00:00+00:00",
   zones:[3, 5]
 },
 {
-  duration:300000,
+  duration:3000000,
   startTime: "2018-01-25T18:00:24+00:00",
   zones:[3, 5]
 }]
@@ -43,26 +44,26 @@ export default class Scheduler extends Component {
    {
      id: 0,
      title:'watering',
-     start: moment("2018-02-10T18:00:24+00:00").toDate(),
-     end:moment("2018-02-10T18:05:24+00:00").toDate()
+     start: moment("2018-02-10T12:00:24+00:00").toDate(),
+     end:moment("2018-02-10T23:00:24+00:00").toDate()
    },
    {
     id: 0,
     title:'watering',
-    start: moment("2018-02-12T18:00:24+00:00").toDate(),
-    end:moment("2018-02-12T18:05:24+00:00").toDate()
+    start: moment("2018-02-12T11:00:24+00:00").toDate(),
+    end:moment("2018-02-12T20:05:24+00:00").toDate()
   },
   {
     id: 0,
     title:'watering',
-    start: moment("2018-02-14T18:00:24+00:00").toDate(),
-    end:moment("2018-02-14T18:05:24+00:00").toDate()
+    start: moment("2018-02-13T01:00:24+00:00").toDate(),
+    end:moment("2018-02-13T19:05:24+00:00").toDate()
   },
   {
     id: 0,
     title:'watering',
-    start: moment("2018-02-16T18:00:24+00:00").toDate(),
-    end:moment("2018-02-16T18:05:24+00:00").toDate()
+    start: moment("2018-02-14T14:00:24+00:00").toDate(),
+    end:moment("2018-02-14T24:05:24+00:00").toDate()
   },
   {
     id: 0,
@@ -167,11 +168,23 @@ export default class Scheduler extends Component {
     //   },
     // ]
 
+    constructor(){
+      super();
+      this.createEvent = this.createEvent.bind(this);
+    }
+
+    createEvent(e){
+      console.log(e);
+    }
+
     render(){
       let allViews = Object.keys(BigCalendar.Views).map(k => BigCalendar.Views[k])
       return (
         <div>
           <BigCalendar
+            selectable
+            defaultView={"week"}
+            onSelectSlot={event => this.createEvent(event)}
             events={this.events}
             views={allViews}
             step={60}

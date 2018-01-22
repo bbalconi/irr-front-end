@@ -4,7 +4,7 @@ import FlatButton from 'material-ui/FlatButton';
 import './dashboard.css';
 import { withRouter } from 'react-router-dom';
 import {BarChart, Bar, LineChart, Line, AreaChart, Area} from 'recharts';
-
+import graph from "./graphsandshite.png";
 
 //thought - no text on the dashboard stuff, maybe just a small screenshot of each thing.
 //what's this sample data going to be composed of? 
@@ -30,13 +30,11 @@ class Dashboard extends Component {
   navigate(location){
     this.props.history.push(location)
   }
-p
-
       render(){
         return(
           <div className="reallyTopWrapper">
             <div className="topWrapper">
-              <Card className="irrCard">
+              <Card onClick={()=>{this.navigate('todaysReport')}} className="irrCard">
                 <CardTitle title="Today's Activity" />
                 <CardText>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -44,12 +42,10 @@ p
                   Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
                   Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
                 </CardText>
-                <CardActions>
-                  <FlatButton onClick={()=>{this.navigate('todaysReport')}} label="See Today's Activity" />
-                </CardActions>
+               
               </Card>
               <div className="bottomWrapper">
-                  <Card className="irrCard">
+                <Card onClick={()=>{this.navigate('controls')}} className="irrCard">
                 <CardTitle title="Manual Controls"  />
                 <CardText>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -57,11 +53,8 @@ p
                   Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
                   Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
                 </CardText>
-              <CardActions>
-                <FlatButton onClick={()=>{this.navigate('controls')}} label="Visit Controls" />
-              </CardActions>
             </Card>
-                <Card className="irrCard">
+                <Card onClick={()=>{this.navigate('scheduler')}} className="irrCard">
               <CardTitle title="Schedule a Watering" />
               <CardText>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -69,13 +62,10 @@ p
                 Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
                 Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
               </CardText>
-              <CardActions>
-                <FlatButton onClick={()=>{this.navigate('scheduler')}} label="Go to Scheduler" />
-              </CardActions>
             </Card>              
            </div>
           </div>
-          <Card className="irrCard">
+          <Card onClick={()=>{this.navigate('historicalReports')}} className="irrCard">
               <CardTitle title="Historical Reports" />
               <CardText>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -83,20 +73,21 @@ p
                 Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
                 Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
               </CardText>
+              {/* <div className="graphImage">
+              <img src={graph} alt="grafs" height="300" width="300">
+              </img>
+              </div> */}
+                {/* <LineChart width={478} height={100} data={data}>
+        <Line type='monotone' dataKey='pv' stroke='#8884d8' strokeWidth={2} />
+      </LineChart> */}
               <AreaChart width={478} height={150} data={data}
             margin={{top: 5, right: 0, left: 0, bottom: 5}}>
         <Area type='monotone' dataKey='uv' stroke='#54a4a6' fill='#54a4a6' />
       </AreaChart>
-              {/* <BarChart width={150} height={40} data={data}>
+              {/* <BarChart width={478} height={40} data={data}>
                 <Bar dataKey='uv' fill='#8884d8'/>
-                </BarChart>
-                <LineChart width={300} height={100} data={data}>
-        <Line type='monotone' dataKey='pv' stroke='#8884d8' strokeWidth={2} />
-      </LineChart> */}
-                  
-              <CardActions>
-                <FlatButton onClick={()=>{this.navigate('historicalReports')}} label="View Reports"/>
-              </CardActions>
+                </BarChart> */}
+              
             </Card>              
             </div>
         )
