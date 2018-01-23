@@ -14,7 +14,6 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
   //total water usage
   //total sunlight?  
   //water usage by zone?
-
 //todo: today's activity displays weather, is system active, what the sensors are showing. a simple read only day view caalendar, webcam
 //look up what them components can do for these things. 
 //let's get the card in there..
@@ -32,6 +31,16 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
     {name: 'July', reclaimedWater: 349, cityWater: 430, amt: 2100},
   ];
 
+  //aha, the mapping. so we'll need to get the 
+  //so we might need a different concept... like a "watered.."
+  //fork - i could have two seperate 
+    // 1) keep everything in one table
+          //a. totalDuration field and a reclaimed water duration
+    // 2) seperate into two tables
+          //a. i guess i need to look into this. this is still a bit of a mystery
+  // what is the best way to handle this? 
+
+
     const data = [{
       startTime: moment("2018-01-15T18:00:00+00:00").format("l"),
       duration:300000,
@@ -43,38 +52,31 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
       startTime: moment("2018-01-17T18:00:00+00:00").format("l"),
       zones:[3, 5],
       reclaimedWaterUsage:0.2,
-      
     },
     {
       duration:300000,
       startTime: moment("2018-01-19T18:00:00+00:00").format("l"),
       zones:[3, 5],
       reclaimedWaterUsage:0.2,
-      
     },
     {
       duration:100000,
       startTime: moment("2018-01-21T18:00:00+00:00").format("l"),
       zones:[3, 5],
       reclaimedWaterUsage:0.2      
-
     },
     {
       duration:300000,
       startTime: moment("2018-01-23T18:00:00+00:00").format("l"),
       zones:[3, 5],
       reclaimedWaterUsage:0.2,
-      
     },
     {
       duration:300000,
       startTime: moment("2018-01-25T18:00:24+00:00").format("l"),
       zones:[3, 5],
       reclaimedWaterUsage:0.125,
-      
     }]
-
-
     //i gotta make my own data for the zone
 
     //Bozeman's rate = $0.003/gal;
@@ -108,6 +110,9 @@ export default class Report extends Component {
       loading: true
     }
   }
+
+  //could have it to where instead of a card, it is one of those side bars, and then when the user minimizes it, the graphs expand...
+  //play with that for sure...
 
   async componentWillMount(){
     var res =  await axios.get('https://raw.githubusercontent.com/react-d3/react-d3-example/master/simple/data/user_sample.json');
