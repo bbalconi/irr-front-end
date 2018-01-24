@@ -21,7 +21,6 @@ import Controls from "./Controls/Controls";
 import logo from "./logo.png";
 import can from "./007-can.png";
 
-
 const muiTheme = getMuiTheme({
   palette: {
     "primary1Color": "#689f38",

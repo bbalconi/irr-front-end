@@ -17,9 +17,7 @@ import {
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
-
 BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment))
-//todo: make a ux for zone selection
 
 export default class Scheduler extends Component {
     constructor(){
@@ -33,7 +31,7 @@ export default class Scheduler extends Component {
         events:[],
         open:false,
         value:null,
-        //TODO: this needs to come from some config table
+        //TODO: this needs to come from some config table, even hard-coded, it needs to go into the database
         zones:[
           {
             description: 'Front Garden',
@@ -81,21 +79,24 @@ export default class Scheduler extends Component {
           }
         });
         let e = this.selectedEvent;
-        await axios.post('/waterings', {
+        var res = await axios.post('/waterings', {
           duration: moment(e.end).diff(moment(e.start), "milliseconds"), 
           start:moment(e.start).format(),
           zones:zones
         });
       }
-     this.setState({open: false});
+      var res = await axios.get('/waterings');
+      this.processWateringsForCalendar(res.data);
+      //TODO don't need to set state twice, doing it above in processwateringsforcalendar
+      this.setState({open: false});
     };
-
+    
     //uses data from db to make a react-big-calendar event object
     processWateringsForCalendar(waterings){
       let events = waterings.map((w)=>{
         return {
-          start:moment(w.start).toDate(),
-          end:moment(w.start).add(w.total_duration, "milliseconds").toDate(),
+          start:moment(w.startTime).toDate(),
+          end:moment(w.startTime).add(w.total_duration, "milliseconds").toDate(),
           title:"watering"
         }
       });
@@ -126,7 +127,7 @@ export default class Scheduler extends Component {
     async createEvent(e){
       this.selectedEvent = e;
       this.handleOpen();
-x    }
+    }
 
     render(){
       let allViews = Object.keys(BigCalendar.Views).map(k => BigCalendar.Views[k])
