@@ -19,7 +19,6 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 //let's get the card in there..
 //todo: get the total card fixed to the side
 
-
   //todo: get this dumbData from actual data
   const dumbData = [
     {name: 'January', reclaimedWater: 400, cityWater: 240, amt: 2400},
@@ -31,15 +30,10 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
     {name: 'July', reclaimedWater: 349, cityWater: 430, amt: 2100},
   ];
 
-  //aha, the mapping. so we'll need to get the 
-  //so we might need a different concept... like a "watered.."
-  //fork - i could have two seperate 
-    // 1) keep everything in one table
-          //a. totalDuration field and a reclaimed water duration
-    // 2) seperate into two tables
-          //a. i guess i need to look into this. this is still a bit of a mystery
-  // what is the best way to handle this? 
 
+  //after zone selection, let's get this working with the actual db;
+
+  //first thing. just make the dang calls...
 
     const data = [{
       startTime: moment("2018-01-15T18:00:00+00:00").format("l"),
@@ -77,7 +71,6 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
       zones:[3, 5],
       reclaimedWaterUsage:0.125,
     }]
-    //i gotta make my own data for the zone
 
     //Bozeman's rate = $0.003/gal;
     //a terrible estimation, but it's something to start with
@@ -86,9 +79,7 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 
     var lastStartTime;
     data.forEach((w, i)=>{
-      //console.log(duration/(60000 * 60) )
       w.cityWaterUsage = (w.duration / (60000 * 60) ) * 15;
-
       if (i > 0){
        var duration = moment(w.startTime).diff(moment(lastStartTime), "hours");
        if (duration > 24){
@@ -115,8 +106,7 @@ export default class Report extends Component {
   //play with that for sure...
 
   async componentWillMount(){
-    var res =  await axios.get('https://raw.githubusercontent.com/react-d3/react-d3-example/master/simple/data/user_sample.json');
-    this.chartData = res.data;
+    
     this.setState({
       loading:false
     });
