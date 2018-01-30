@@ -20,7 +20,6 @@ class Greeting extends React.Component {
 }
  
 class Login extends Component {
-  
   constructor(props){
     super(props);
     this.login = this.login.bind(this);

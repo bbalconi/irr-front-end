@@ -19,6 +19,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment))
 
+
 export default class Scheduler extends Component {
     constructor(){
       super();
@@ -82,7 +83,9 @@ export default class Scheduler extends Component {
         var res = await axios.post('/waterings', {
           duration: moment(e.end).diff(moment(e.start), "milliseconds"), 
           start:moment(e.start).format(),
-          zones:zones
+          zones:zones,
+          end:moment(e.end).format()
+
         });
       }
       var res = await axios.get('/waterings');
@@ -93,16 +96,17 @@ export default class Scheduler extends Component {
     
     //uses data from db to make a react-big-calendar event object
     processWateringsForCalendar(waterings){
-      let events = waterings.map((w)=>{
-        return {
-          start:moment(w.startTime).toDate(),
-          end:moment(w.startTime).add(w.total_duration, "milliseconds").toDate(),
-          title:"watering"
-        }
-      });
-      this.setState({
-        events:events
-      });
+        let events = waterings.map((w)=>{
+          return {
+            start:moment(w.startTime).toDate(),
+            end:moment(w.startTime).add(w.total_duration, "milliseconds").toDate(),
+            title:"watering"
+          }
+        });
+        this.setState({
+          events:events
+        });
+
     }
 
     handleRowSelection(s){

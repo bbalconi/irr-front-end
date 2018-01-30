@@ -18,6 +18,7 @@ import PropTypes from 'prop-types';
 import Scheduler from "./Scheduler/scheduler"
 import Report from "./Report/Report";
 import Controls from "./Controls/Controls";
+import CreateSystem from "./CreateSystem/createSystem";
 import logo from "./logo.png";
 import can from "./007-can.png";
 
@@ -46,6 +47,7 @@ class App extends Component {
               <FlatButton><Link to='/Scheduler'> Scheduler </Link></FlatButton> 
               <FlatButton><Link to='/controls'> Controls </Link></FlatButton>
               <FlatButton><Link to='/historicalReports'> Reports </Link></FlatButton>
+              <FlatButton><Link to='/createSystem'>Create a System </Link></FlatButton>
               <FlatButton> <span className="navText">Sign Up</span></FlatButton>
             </AppBar>
                 <div className="container">
@@ -56,6 +58,7 @@ class App extends Component {
                   <Route path='/historicalReports' render={() => <Report data={[5,10,1,3]} size={[500,500]} />} />
                   <Route path='/todaysReport' render={() => <Report />} />
                   <Route path='/controls' render={() => <Controls />} />
+                  <Route path='/createSystem' render={() => <CreateSystem />} />
                   {/*<Route path='/signup' render={() => <SignUp />} />*/}
                 </div>
           </div>

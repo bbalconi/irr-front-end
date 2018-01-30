@@ -21,9 +21,6 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
   //todo: get this dumbData from actual data
   //so ill need to do a bunch of calculations... that is rough... i shouldn't do that on the front end...
 
-
-  //what a mojo killer
-
   const dumbData = [
     {name: 'January', reclaimedWater: 400, cityWater: 240, amt: 2400},
     {name: 'February', reclaimedWater: 300, cityWater: 139, amt: 2210},
@@ -45,49 +42,66 @@ export default class Report extends Component {
     super(props);
     this.state = {
       loading: true,
-      data:null
+      dailysData:null
     }
+    this.processDailys = this.processDailys.bind(this);
+    this.calculateWaterUsage = this.calculateWaterUsage.bind(this);
   }
 
-
-  //two ways to handle this
-  //1) i could do something fancy on the backend
-  // i like the data layer more and more... i think that is wise...
-
-    // run the calculation on 
-  //2) maybe i could do some fancy shite in the data layer
-    // a. probs have to update a table upon every call. not a terrible idea i guess
-  //3) could try it on the front end
-
-  // could have it to where instead of a card, it is one of those side bars, 
-  // and then when the user minimizes it, the graphs expand...
+  processDailys(data){
+    let processedData = [];
+    data.forEach((d)=>{
+      var matchedDay = processedData.find((pD)=>{
+        if (pD.day === moment(d.startTime).format('l')){
+          return true;
+        }
+      });
+      if (matchedDay){
+        matchedDay.totalDuration += d.duration;
+      } else {
+        processedData.push({
+          totalDuration: d.duration,
+          day:moment(d.startTime).format('l')
+        });
+      }
+    });
+    return processedData;
+  }
 
   async componentWillMount(){
-    var res = await axios.get('/waterings');
+
+    var dailys = await axios.post('/dailyWaterings',{
+      startTime:moment().format(),
+      endTime:moment().add(1, "weeks").format()
+    });
+
+    // daily data is the processed dailys that give totals for each day
+    let dailysData = this.processDailys(dailys.data);
+    //25 psi
+    this.calculateWaterUsage(dailysData);
+
+    this.setState({
+      dailysData:dailysData,
+      loading:false
+    });
+  }
+  
+  calculateWaterUsage(data){
     var lastStartTime;
-    res.data.forEach((w, i)=>{
-      w.cityWaterUsage = (w.duration / (60000 * 60) ) * 15;
+    data.forEach((w, i)=>{
+      w.cityWaterUsage = (w.totalDuration / (60000 * 60) ) * 15;
       if (i > 0){
        var duration = moment(w.startTime).diff(moment(lastStartTime), "hours");
        if (duration > 24){
-        res.data.splice(i, 0, {
-          duration:0,
+        data.splice(i, 0, {
+          cityWaterUsage:0,
           startTime:moment(w.startTime).subtract(1,"d").format("l"),
-          cityWaterUsage: 0
           });
-        } else {
-          //TODO: shouldnt be mutating this data directly
-          w.startTime = moment(w.startTime).format("l");
         }
-      }
+     }
       lastStartTime = w.startTime;
-
-    this.setState({
-      data:res.data,
-      loading:false
     });
-  });
-}
+  }
 
   render(){
     if (this.state.loading){
@@ -97,15 +111,15 @@ export default class Report extends Component {
           <div>
             <div>
             <h3 className="chartTitle"> Water Usage by Week </h3>
-            <BarChart width={1000} height={300} data={this.state.data}
+            <BarChart width={1000} height={300} data={this.state.dailysData}
               margin={{top: 5, right: 30, left: 20, bottom: 5}}>
-              <XAxis dataKey="startTime"/>
+              <XAxis dataKey="day"/>
               <YAxis label={{ value: 'gallons of water', angle: -90, position: 'insideLeft' }} height={1}/>
               <CartesianGrid strokeDasharray="3 3"/>
               <Tooltip/>
               <Legend />
               <Bar dataKey="cityWaterUsage" stackId="a" fill="rgb(84, 164, 166)" />
-              <Bar dataKey="reclaimedWaterUsage" stackId="a" fill="#82ca9d" />
+              {/* <Bar dataKey="reclaimedWaterUsage" stackId="a" fill="#82ca9d" /> */}
             </BarChart>
             <h3 className="chartTitle"> Water Usage Month </h3>
             <LineChart width={1000} height={250} data={dumbData}
@@ -142,7 +156,7 @@ export default class Report extends Component {
               </Card>
             </div> 
           </div>
-    )
-  }
+      )
+    }
   }
 }
