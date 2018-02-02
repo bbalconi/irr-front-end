@@ -21,16 +21,6 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
   //todo: get this dumbData from actual data
   //so ill need to do a bunch of calculations... that is rough... i shouldn't do that on the front end...
 
-  const dumbData = [
-    {name: 'January', reclaimedWater: 400, cityWater: 240, amt: 2400},
-    {name: 'February', reclaimedWater: 300, cityWater: 139, amt: 2210},
-    {name: 'March', reclaimedWater: 200, cityWater: 980, amt: 2290},
-    {name: 'April', reclaimedWater: 278, cityWater: 390, amt: 2000},
-    {name: 'May', reclaimedWater: 189, cityWater: 480, amt: 2181},
-    {name: 'June', reclaimedWater: 239, cityWater: 380, amt: 2500},
-    {name: 'July', reclaimedWater: 349, cityWater: 430, amt: 2100},
-  ];
-
      //Bozeman's rate = $0.003/gal;
      //a terrible estimation, but it's something to start with
      //garden consumes = 15gal/hr;
@@ -42,7 +32,8 @@ export default class Report extends Component {
     super(props);
     this.state = {
       loading: true,
-      dailysData:null
+      dailysData:null,
+      monthlysData:null
     }
     this.processDailys = this.processDailys.bind(this);
     this.calculateWaterUsage = this.calculateWaterUsage.bind(this);
@@ -70,18 +61,21 @@ export default class Report extends Component {
 
   async componentWillMount(){
 
-    var dailys = await axios.post('/dailyWaterings',{
-      startTime:moment().format(),
-      endTime:moment().add(1, "weeks").format()
-    });
+    //TODO: move logic into backend? (like the monthlys)
 
+    let startTime = moment().startOf("week").format();
+    let endTime = moment(startTime).add(1, "weeks");
+    var dailys = await axios.post('/dailyWaterings',{
+      startTime: startTime,
+      endTime: endTime.format()
+    });
+    var monthlys = await axios.post('/monthlyWaterings');
     // daily data is the processed dailys that give totals for each day
     let dailysData = this.processDailys(dailys.data);
-    //25 psi
     this.calculateWaterUsage(dailysData);
-
     this.setState({
       dailysData:dailysData,
+      monthlysData:monthlys.data,
       loading:false
     });
   }
@@ -103,6 +97,7 @@ export default class Report extends Component {
     });
   }
 
+
   render(){
     if (this.state.loading){
       return "loading..."
@@ -110,7 +105,7 @@ export default class Report extends Component {
       return(
           <div>
             <div>
-            <h3 className="chartTitle"> Water Usage by Week </h3>
+            <h3 className="chartTitle"> Water Usage by Day </h3>
             <BarChart width={1000} height={300} data={this.state.dailysData}
               margin={{top: 5, right: 30, left: 20, bottom: 5}}>
               <XAxis dataKey="day"/>
@@ -122,15 +117,15 @@ export default class Report extends Component {
               {/* <Bar dataKey="reclaimedWaterUsage" stackId="a" fill="#82ca9d" /> */}
             </BarChart>
             <h3 className="chartTitle"> Water Usage Month </h3>
-            <LineChart width={1000} height={250} data={dumbData}
+            <LineChart width={1000} height={250} data={this.state.monthlysData}
               margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
+              <XAxis dataKey="month" />
               <YAxis />
               <Tooltip />
               <Legend />
-              <Line type="monotone" dataKey="reclaimedWater" stroke="#8884d8" />
-              <Line type="monotone" dataKey="cityWater" stroke="#82ca9d" />
+              {/* <Line type="monotone" dataKey="reclaimedWater" stroke="#8884d8" /> */}
+              <Line type="monotone" dataKey="totalWaterUsage" stroke="#82ca9d" />
             </LineChart>
             <h3 className="chartTitle"> Water Usage by Zone </h3>
             <BarChart width={1000} height={300} data={this.state.data}
