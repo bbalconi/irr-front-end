@@ -99,7 +99,7 @@ export default class Scheduler extends Component {
         let events = waterings.map((w)=>{
           return {
             start:moment(w.startTime).toDate(),
-            end:moment(w.startTime).add(w.total_duration, "milliseconds").toDate(),
+            end:moment(w.endTime).add(w.total_duration, "milliseconds").toDate(),
             title:"watering"
           }
         });

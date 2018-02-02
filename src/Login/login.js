@@ -3,22 +3,7 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
 
-class Greeting extends React.Component {
-  constructor(props){
-    super(props);
-  }
-  render() {
-    return (
-      <div>
-        <h1>{this.context.message}</h1>
-          {this.props.children}
-      </div>
-    );
-  }
-}
- 
 class Login extends Component {
   constructor(props){
     super(props);
@@ -40,10 +25,14 @@ class Login extends Component {
   }
 
   async login(){
-    var barf = await axios.post('authenticate', {
-      email:this.state.email,
-      password:this.state.password
-    });
+    try{
+     await axios.post('authenticate', {
+       email:this.state.email,
+       password:this.state.password
+     });
+    } catch(e) {
+      console.log(e);
+    }
     this.props.history.push('/dashboard');
   }
   
@@ -72,9 +61,4 @@ class Login extends Component {
     )
   } 
 }
-
-Login.childContextTypes={
-  message:PropTypes.string
-}
-
 export default withRouter(Login);

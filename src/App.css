@@ -30,12 +30,13 @@
 a:link{
   text-decoration:none;
   /* color:rgba(0, 0, 0, 0.87); */
-  color:white;
+  color:rgba(0, 0, 0, 0.87)
 }
 
 a:visited{
   text-decoration:none;
-  color:white;
+  color:rgba(0, 0, 0, 0.87);
+  /* color:white; */
   font-family:inherit;
 }
 
@@ -44,6 +45,10 @@ a:active{
 }
 
 .navText{
-  color:white;
+  color:white; 
 }
 
+
+.titleWrapper{
+  display:flex;
+}

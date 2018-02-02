@@ -5,7 +5,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import AppBar from 'material-ui/AppBar';
 import Dashboard from './Dashboard/dashboard';
-import axios from 'axios';
+//import axios from 'axios';
 import {
   BrowserRouter as Router,
   Route,
@@ -14,13 +14,15 @@ import {
 import FlatButton from 'material-ui/FlatButton';
 import Home from './Home/home';
 import Login from './Login/login';
-import PropTypes from 'prop-types';
 import Scheduler from "./Scheduler/scheduler"
 import Report from "./Report/Report";
 import Controls from "./Controls/Controls";
 import CreateSystem from "./CreateSystem/createSystem";
-import logo from "./logo.png";
-import can from "./007-can.png";
+import logo from "./logoTwo.png";
+import Drawer from 'material-ui/Drawer';
+import MenuItem from 'material-ui/MenuItem';
+import Dialog from 'material-ui/Dialog';
+
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -36,30 +38,66 @@ const muiTheme = getMuiTheme({
 });
 
 class App extends Component {
+
+  constructor(){
+    super()
+    this.state = {
+      drawerOpen:false,
+      dialog:false
+    }
+  }
+
+  handleToggle = () => {
+    console.log('barf');
+    this.setState({drawerOpen: !this.state.drawerOpen});
+  }
+  handleOpen = () => {
+    this.setState({dialog: true});
+  };
+
+  handleClose = () => {
+    this.setState({dialog: false});
+  };
+
   render() {
     return (
       <MuiThemeProvider muiTheme={muiTheme}>      
         <Router>
           <div>
-            {/* <AppBar showMenuIconButton={false}	className="irrAppBar" title={<img src={logo} alt="logo" height="80px"></img>}> */}
-            <AppBar showMenuIconButton={false}	className="irrAppBar" >
-              <FlatButton><Link to='/Dashboard'> <span className="barf"><img src={can} alt="logo" height="20px"></img>Dashboard</span></Link></FlatButton>
-              <FlatButton><Link to='/Scheduler'> Scheduler </Link></FlatButton> 
-              <FlatButton><Link to='/controls'> Controls </Link></FlatButton>
-              <FlatButton><Link to='/historicalReports'> Reports </Link></FlatButton>
-              <FlatButton><Link to='/createSystem'>Create a System </Link></FlatButton>
-              <FlatButton> <span className="navText">Sign Up</span></FlatButton>
+          <Dialog
+            title="Login"
+            modal={false}
+            open={this.state.dialog}
+            onRequestClose={this.handleClose}
+          >
+         <Login />
+          </Dialog>
+          <Drawer open={this.state.drawerOpen}
+             docked={false}
+             onRequestChange={(drawerOpen) => this.setState({drawerOpen})}
+          >
+              <MenuItem><Link to='/Dashboard'></Link></MenuItem>
+              <MenuItem><Link to='/Scheduler'> Scheduler </Link></MenuItem>
+              <MenuItem><Link to='/controls'> Controls </Link></MenuItem>
+              <MenuItem><Link to='/historicalReports'> Reports </Link></MenuItem>
+              <MenuItem><Link to='/createSystem'>Create a System </Link></MenuItem>
+           </Drawer>
+             <AppBar 
+             showMenuIconButton={true}
+             onLeftIconButtonTouchTap={()=>{this.handleToggle()}}	
+             title={<div className="titleWrapper"><img src={logo} alt="logo" height="60px"></img> Quench</div>}
+              > 
+              <FlatButton onClick={this.handleOpen}><span className="navText">Log in</span></FlatButton>
+              <FlatButton onClick={this.handleOpen}> <span className="navText">Sign up</span></FlatButton> 
             </AppBar>
                 <div className="container">
                   <Route exact path='/' render={() => <Home />} />
-                  <Route path='/login' render={() => <Login />} />
                   <Route path='/dashboard' render={() => <Dashboard />} />
                   <Route path='/scheduler' render={() => <Scheduler />} />
                   <Route path='/historicalReports' render={() => <Report data={[5,10,1,3]} size={[500,500]} />} />
                   <Route path='/todaysReport' render={() => <Report />} />
                   <Route path='/controls' render={() => <Controls />} />
                   <Route path='/createSystem' render={() => <CreateSystem />} />
-                  {/*<Route path='/signup' render={() => <SignUp />} />*/}
                 </div>
           </div>
         </Router>
