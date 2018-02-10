@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import BigCalendar from 'react-big-calendar'
-import localizer from 'react-big-calendar/lib/localizers/globalize'
+//import localizer from 'react-big-calendar/lib/localizers/globalize'
 import moment from 'moment'
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import axios from 'axios';
@@ -14,7 +14,7 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
-import TextField from 'material-ui/TextField';
+//import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 
 BigCalendar.setLocalizer(BigCalendar.momentLocalizer(moment))
@@ -80,7 +80,7 @@ export default class Scheduler extends Component {
           }
         });
         let e = this.selectedEvent;
-        var res = await axios.post('/waterings', {
+        await axios.post('/waterings', {
           duration: moment(e.end).diff(moment(e.start), "milliseconds"), 
           start:moment(e.start).format(),
           zones:zones,
@@ -88,8 +88,8 @@ export default class Scheduler extends Component {
 
         });
       }
-      var res = await axios.get('/waterings');
-      this.processWateringsForCalendar(res.data);
+      let waterRes = await axios.get('/waterings');
+      this.processWateringsForCalendar(waterRes.data);
       //TODO don't need to set state twice, doing it above in processwateringsforcalendar
       this.setState({open: false});
     };

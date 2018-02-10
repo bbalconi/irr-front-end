@@ -22,6 +22,9 @@ import logo from "./logoTwo.png";
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import Dialog from 'material-ui/Dialog';
+import {Provider} from 'mobx-react';
+import zoneStore from './stores/zoneStore';
+
 
 
 const muiTheme = getMuiTheme({
@@ -61,46 +64,49 @@ class App extends Component {
 
   render() {
     return (
-      <MuiThemeProvider muiTheme={muiTheme}>      
-        <Router>
-          <div>
-          <Dialog
-            title="Login"
-            modal={false}
-            open={this.state.dialog}
-            onRequestClose={this.handleClose}
-          >
-         <Login />
-          </Dialog>
-          <Drawer open={this.state.drawerOpen}
-             docked={false}
-             onRequestChange={(drawerOpen) => this.setState({drawerOpen})}
-          >
-              <MenuItem><Link to='/Dashboard'></Link></MenuItem>
-              <MenuItem><Link to='/Scheduler'> Scheduler </Link></MenuItem>
-              <MenuItem><Link to='/controls'> Controls </Link></MenuItem>
-              <MenuItem><Link to='/historicalReports'> Reports </Link></MenuItem>
-              <MenuItem><Link to='/createSystem'>Create a System </Link></MenuItem>
-           </Drawer>
-             <AppBar 
-             showMenuIconButton={true}
-             onLeftIconButtonTouchTap={()=>{this.handleToggle()}}	
-             title={<div className="titleWrapper"><img src={logo} alt="logo" height="60px"></img> Quench</div>}
-              > 
-              <FlatButton onClick={this.handleOpen}><span className="navText">Log in</span></FlatButton>
-              <FlatButton onClick={this.handleOpen}> <span className="navText">Sign up</span></FlatButton> 
-            </AppBar>
-                <div className="container">
-                  <Route exact path='/' render={() => <Home />} />
-                  <Route path='/dashboard' render={() => <Dashboard />} />
-                  <Route path='/scheduler' render={() => <Scheduler />} />
-                  <Route path='/historicalReports' render={() => <Report data={[5,10,1,3]} size={[500,500]} />} />
-                  <Route path='/todaysReport' render={() => <Report />} />
-                  <Route path='/controls' render={() => <Controls />} />
-                  <Route path='/createSystem' render={() => <CreateSystem />} />
-                </div>
-          </div>
-        </Router>
+
+      <MuiThemeProvider muiTheme={muiTheme}>  
+        <Provider zoneStore={new zoneStore()}>
+          <Router>
+            <div>
+            <Dialog
+              title="Login"
+              modal={false}
+              open={this.state.dialog}
+              onRequestClose={this.handleClose}
+            >
+          <Login />
+            </Dialog>
+            <Drawer open={this.state.drawerOpen}
+              docked={false}
+              onRequestChange={(drawerOpen) => this.setState({drawerOpen})}
+            >
+                <MenuItem><Link to='/Dashboard'></Link></MenuItem>
+                <MenuItem><Link to='/Scheduler'> Scheduler </Link></MenuItem>
+                <MenuItem><Link to='/controls'> Controls </Link></MenuItem>
+                <MenuItem><Link to='/historicalReports'> Reports </Link></MenuItem>
+                <MenuItem><Link to='/createSystem'>Create a System </Link></MenuItem>
+            </Drawer>
+              <AppBar 
+              showMenuIconButton={true}
+              onLeftIconButtonTouchTap={()=>{this.handleToggle()}}	
+              title={<div className="titleWrapper"><img src={logo} alt="logo" height="60px"></img> Quench</div>}
+                > 
+                <FlatButton onClick={this.handleOpen}><span className="navText">Log in</span></FlatButton>
+                <FlatButton onClick={this.handleOpen}> <span className="navText">Sign up</span></FlatButton> 
+              </AppBar>
+                  <div className="container">
+                    <Route exact path='/' render={() => <Home />} />
+                    <Route path='/dashboard' render={() => <Dashboard />} />
+                    <Route path='/scheduler' render={() => <Scheduler />} />
+                    <Route path='/historicalReports' render={() => <Report data={[5,10,1,3]} size={[500,500]} />} />
+                    <Route path='/todaysReport' render={() => <Report />} />
+                    <Route path='/controls' render={() => <Controls />} />
+                    <Route path='/createSystem' render={() => <CreateSystem />} />
+                  </div>
+            </div>
+          </Router>
+        </Provider>
       </MuiThemeProvider>
     );
   }

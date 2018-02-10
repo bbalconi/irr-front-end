@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import {Card, CardTitle, CardText} from 'material-ui/Card';
+//import FlatButton from 'material-ui/FlatButton';
 import './dashboard.css';
 import { withRouter } from 'react-router-dom';
-import {BarChart, Bar, LineChart, Line, AreaChart, Area} from 'recharts';
-import graph from "./graphsandshite.png";
+//import {BarChart, Bar, LineChart, Line, AreaChart, Area} from 'recharts';
+import {Area, AreaChart} from "recharts";
+//import graph from "./graphsandshite.png";
 
 //thought - no text on the dashboard stuff, maybe just a small screenshot of each thing.
 //what's this sample data going to be composed of? 

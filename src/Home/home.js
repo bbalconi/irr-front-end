@@ -24,21 +24,21 @@ export default class App extends Component {
         style={style}
       >
         <Slide
-          media={<img src="http://www.icons101.com/icon_png/size_256/id_79394/youtube.png" />}
+          media={<img src="http://www.icons101.com/icon_png/size_256/id_79394/youtube.png" alt="dude"/>}
           mediaBackgroundStyle={{ backgroundColor: red400 }}
           contentStyle={{ backgroundColor: red600 }}
           title="Demo the App"
           subtitle="Just using this will blow your mind."
         />
         <Slide
-          media={<img src="http://www.icons101.com/icon_png/size_256/id_80975/GoogleInbox.png" />}
+          media={<img src="http://www.icons101.com/icon_png/size_256/id_80975/GoogleInbox.png" alt="barf"/>}
           mediaBackgroundStyle={{ backgroundColor: blue400 }}
           contentStyle={{ backgroundColor: blue600 }}
           title="Data Intensive"
           subtitle="Data Intensic"
         />
          <Slide
-          media={<img src="http://www.icons101.com/icon_png/size_256/id_76704/Google_Settings.png" />}
+          media={<img src="http://www.icons101.com/icon_png/size_256/id_76704/Google_Settings.png" alt="dude2" />}
           mediaBackgroundStyle={{ backgroundColor: green400 }}
           contentStyle={{ backgroundColor: green600 }}
           title="Remote Control"

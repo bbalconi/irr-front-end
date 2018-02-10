@@ -3,7 +3,13 @@ import axios from 'axios';
 import {XAxis, YAxis, Tooltip, Legend, Bar, BarChart, CartesianGrid, LineChart, Line} from 'recharts';
 import moment from 'moment';
 import "./Report.css"
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import {Card, 
+ // CardActions, 
+//  CardHeader, 
+ // CardMedia, 
+  CardTitle, 
+  CardText
+} from 'material-ui/Card';
 
   //water usage by week
   //water usage by month
@@ -70,6 +76,8 @@ export default class Report extends Component {
       endTime: endTime.format()
     });
     var monthlys = await axios.post('/monthlyWaterings');
+    var zones = await axios.post('/zoneUsage');
+    console.log(zones);
     // daily data is the processed dailys that give totals for each day
     let dailysData = this.processDailys(dailys.data);
     this.calculateWaterUsage(dailysData);
@@ -79,7 +87,7 @@ export default class Report extends Component {
       loading:false
     });
   }
-  
+
   calculateWaterUsage(data){
     var lastStartTime;
     data.forEach((w, i)=>{
@@ -96,7 +104,6 @@ export default class Report extends Component {
       lastStartTime = w.startTime;
     });
   }
-
 
   render(){
     if (this.state.loading){
