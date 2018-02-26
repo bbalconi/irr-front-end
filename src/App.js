@@ -17,15 +17,16 @@ import Login from './Login/login';
 import Scheduler from "./Scheduler/scheduler"
 import Report from "./Report/Report";
 import Controls from "./Controls/Controls";
-import CreateSystem from "./CreateSystem/createSystem";
+import CreateSystemContainer from "./CreateSystem/createSystemContainer";
 import logo from "./logoTwo.png";
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import Dialog from 'material-ui/Dialog';
-import {Provider} from 'mobx-react';
-import zoneStore from './stores/zoneStore';
+import { Provider } from 'react-redux';
+import reducer from "./reducers";
+import { createStore } from 'redux';
 
-
+const store = createStore(reducer);
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -66,7 +67,7 @@ class App extends Component {
     return (
 
       <MuiThemeProvider muiTheme={muiTheme}>  
-        <Provider zoneStore={new zoneStore()}>
+        <Provider store={store}>
           <Router>
             <div>
             <Dialog
@@ -102,7 +103,7 @@ class App extends Component {
                     <Route path='/historicalReports' render={() => <Report data={[5,10,1,3]} size={[500,500]} />} />
                     <Route path='/todaysReport' render={() => <Report />} />
                     <Route path='/controls' render={() => <Controls />} />
-                    <Route path='/createSystem' render={() => <CreateSystem />} />
+                    <Route path='/createSystem' render={() => <CreateSystemContainer />} />
                   </div>
             </div>
           </Router>

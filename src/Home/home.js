@@ -7,7 +7,7 @@ import img from "./irr.jpeg";
 
 
 const style={
-  "z-index":0,
+  "zIndex":0,
   "top":"50px",
   "backgroundImage": "url(" + img + ")",
   "width":"100%",

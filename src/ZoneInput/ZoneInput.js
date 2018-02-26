@@ -7,9 +7,9 @@ class ZoneInput extends Component {
   constructor(props){
     super(props);
     this.state = {
-      //systemName:"",
       description:""
     }
+
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
   }
 
@@ -18,18 +18,20 @@ class ZoneInput extends Component {
   }
 
   render(){
-    return <div> 
-    <TextField
-      value={1} 
-      //onChange={this.handleSystemNameChange}
-      floatingLabelText="name"
-     />
-     <TextField
-       value={this.state.description} 
-       onChange={this.handleDescriptionChange}
-       floatingLabelText="description"
-     />
-   </div>
+    return (
+      <div> 
+        <TextField
+          value={1} 
+          //onChange={this.handleSystemNameChange}
+          floatingLabelText="name"
+        />
+        <TextField
+          value={this.state.description} 
+          onChange={this.handleDescriptionChange}
+          floatingLabelText="description"
+        />
+      </div>
+    )
   }
 }
 
