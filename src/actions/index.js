@@ -1,26 +1,32 @@
 import axios from "axios";
-
-
-export const REQUEST_SYSTEMS = 'REQUEST_POSTS'
-export const RECEIVE_SYSTEMS = 'RECEIVE_POSTS'
-export const SELECT_SUBREDDIT = 'SELECT_SUBREDDIT'
-export const INVALIDATE_SUBREDDIT = 'INVALIDATE_SUBREDDIT'
+export const REQUEST_SYSTEMS = 'REQUEST_POSTS';
+export const RECEIVE_SYSTEMS = 'RECEIVE_SYSTEMS';
+export const UPDATE_ZONE_INPUT = "UPDATE_ZONE_INPUT";
+export const ADD_ZONE = "ADD_ZONE";
 
 export const addItemToGarbage = () =>({
   type: 'REQUEST_SYSTEMS',
 });
 
-export const fetchSystem = subreddit => dispatch => {
-  debugger;
-  //dispatch(requestPosts(subreddit));
-  return axios.post("/system").then((data)=>{
-    console.log(data);
+export const addZone = ()=>({
+  type:"ADD_ZONE"
+});
+
+export const updateZoneInput = (updatedZone) => ({
+  type: "UPDATE_ZONE_INPUT",
+  updatedZone
+});
+
+export function loadSystem(dispatch) {
+  return axios.post(`/system`)
+  .then((data)=>{
+    dispatch({ type: 'RECEIVE_SYSTEMS', data })
   });
-  // return fetch(`https://www.reddit.com/r/${subreddit}.json`)
-  //   .then(response => response.json())
-  //   .then(json => dispatch(receivePosts(subreddit, json)))
 }
 
-
-
-
+export function updateSystem(dispatch, updatedSystem) {
+  return axios.post(`/updateSystem`, updatedSystem)
+    .then((data)=>{
+       dispatch({ type: 'RECEIVE_SYSTEMS', data })
+  });
+}

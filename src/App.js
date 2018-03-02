@@ -24,9 +24,12 @@ import MenuItem from 'material-ui/MenuItem';
 import Dialog from 'material-ui/Dialog';
 import { Provider } from 'react-redux';
 import reducer from "./reducers";
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import { dataService } from "./middleware/dataService";
+import { logger } from "./middleware/logger";
+import thunk from "redux-thunk";
 
-const store = createStore(reducer);
+const store = createStore(reducer, applyMiddleware(logger));
 
 const muiTheme = getMuiTheme({
   palette: {
